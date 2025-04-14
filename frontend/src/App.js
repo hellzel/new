@@ -18,26 +18,21 @@ function App() {
   };
 
   const handleServiceSelect = (service) => {
-    console.log("Selected service:", service);  // Debugging line
-    const newSelectedServices = [...selectedServices];
-    const newServiceDetails = {
-      "Esineiden arviointi": "Haluatko tietää omistamasi designesineen, taidelasin, keramiikan, arvotaiteen tai muun arvoesineen rahallisen arvon?\n\nKokeneet asiantuntijamme arvioivat esineitä vuosien kokemuksella mm. huutokauppojen, kuolinpesien, keräilijöiden, kauppiaiden ja vakuutusyhtiöiden tarpeisiin.",
-      "Alkuperän varmistus": "Tarpeestasi riippuen, voimme myös todentaa esineiden alkuperän, dokumentoida niiden omistushistorian sekä laatia kirjallisen kunto-arvion.",
-      "Buyer Bidding": "Our buyer bidding service allows sellers to auction their items in a competitive environment. We facilitate the entire process, from setting up the auction to managing bids and securing the best prices."
+    const descriptions = {
+      "Esineiden arviointi": "Haluatko tietää omistamasi designesineen, taidelasin, keramiikan, arvotaiteen tai muun arvoesineen rahallisen arvon?",
+      "Alkuperän varmistus": "Voimme todentaa esineiden alkuperän, dokumentoida niiden omistushistorian sekä laatia kunto-arvion.",
+      "Buyer Bidding": "Auction your items in a competitive environment. We handle everything from setup to bidding."
     };
 
-    if (newSelectedServices.includes(service)) {
-      const index = newSelectedServices.indexOf(service);
-      newSelectedServices.splice(index, 1);
-      setSelectedServices(newSelectedServices);
-      setServiceDetails("");
-    } else {
-      newSelectedServices.push(service);
-      setSelectedServices(newSelectedServices);
-      setServiceDetails(newServiceDetails[service]);
-    }
-
-    console.log("Updated service details:", newServiceDetails[service]);  // Debugging line
+    setSelectedServices((prev) => {
+      if (prev.includes(service)) {
+        setServiceDetails("");
+        return prev.filter(s => s !== service);
+      } else {
+        setServiceDetails(descriptions[service]);
+        return [...prev, service];
+      }
+    });
   };
 
   return (
@@ -47,7 +42,7 @@ function App() {
       <SelectedServices selectedServices={selectedServices} serviceDetails={serviceDetails} />
       <About />
       <Audience />
-      <Contact />
+      <Contact selectedServices={selectedServices} />
       <Footer />
     </div>
   );

@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 
-function Contact() {
-  const [responseMessage, setResponseMessage] = useState('');
-  const [phone, setPhone] = useState('');
-
-  const handlePhoneChange = (e) => {
-    const numbersOnly = e.target.value.replace(/[^0-9]/g, '');
-    setPhone(numbersOnly);
-  };
+function Contact({ selectedServices }) {
+  const [responseMessage, setResponseMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,8 +10,9 @@ function Contact() {
     const formData = new FormData();
     formData.append("name", e.target.name.value);
     formData.append("email", e.target.email.value);
-    formData.append("phone", phone); // Use state value here
-    formData.append("message", e.target.message.value);
+    formData.append("phone", e.target.phone.value);
+    formData.append("message", message);
+    formData.append("services", selectedServices.join(", "));
 
     if (e.target.attachment.files[0]) {
       formData.append("attachment", e.target.attachment.files[0]);
@@ -32,6 +28,7 @@ function Contact() {
 
       if (res.ok) {
         setResponseMessage("✅ Thank you! Your message has been sent.");
+        setMessage("");
       } else {
         setResponseMessage(`❌ Error: ${result.error || 'Unknown error occurred'}`);
       }
@@ -51,12 +48,31 @@ function Contact() {
           type="text"
           name="phone"
           placeholder="Puhelinnumero"
-          value={phone}
-          onChange={handlePhoneChange}
+          onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
           required
         />
-        <textarea name="message" placeholder="Your Message" required />
+
+        {selectedServices.length > 0 && (
+          <div>
+            <h3>Selected Services:</h3>
+            <ul>
+              {selectedServices.map((s, i) => (
+                <li key={i}>{s}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <textarea
+          name="message"
+          placeholder="Write your message here..."
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          required
+        />
+
         <input type="file" name="attachment" accept="image/*" />
+
         <button type="submit">Send Message</button>
       </form>
       <p>{responseMessage}</p>
