@@ -6,39 +6,38 @@ import SelectedServices from './components/SelectedServices';
 import About from './components/About';
 import Audience from './components/Audience';
 import Footer from './components/Footer';
-import './styles/Provenienssi.css'; // Import your CSS file
+import './styles/Provenienssi.css';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
   const [serviceDetails, setServiceDetails] = useState("");
 
-  // Toggle the navigation menu
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
-  // Handle service selection
   const handleServiceSelect = (service) => {
+    console.log("Selected service:", service);  // Debugging line
     const newSelectedServices = [...selectedServices];
     const newServiceDetails = {
-      "Item Evaluation": "Our item evaluation service provides an expert assessment of your valuable items. Whether it's artwork, antiques, or collectibles, we ensure that every detail is carefully evaluated.",
-      "Provenance Verification": "Provenance verification is a detailed research process where we track the ownership history of your item to ensure its authenticity. We provide full reports on its background and value.",
+      "Esineiden arviointi": "Haluatko tietää omistamasi designesineen, taidelasin, keramiikan, arvotaiteen tai muun arvoesineen rahallisen arvon?\n\nKokeneet asiantuntijamme arvioivat esineitä vuosien kokemuksella mm. huutokauppojen, kuolinpesien, keräilijöiden, kauppiaiden ja vakuutusyhtiöiden tarpeisiin.",
+      "Alkuperän varmistus": "Tarpeestasi riippuen, voimme myös todentaa esineiden alkuperän, dokumentoida niiden omistushistorian sekä laatia kirjallisen kunto-arvion.",
       "Buyer Bidding": "Our buyer bidding service allows sellers to auction their items in a competitive environment. We facilitate the entire process, from setting up the auction to managing bids and securing the best prices."
     };
 
     if (newSelectedServices.includes(service)) {
-      // Remove service from the selection
       const index = newSelectedServices.indexOf(service);
       newSelectedServices.splice(index, 1);
       setSelectedServices(newSelectedServices);
       setServiceDetails("");
     } else {
-      // Add service to the selection
       newSelectedServices.push(service);
       setSelectedServices(newSelectedServices);
       setServiceDetails(newServiceDetails[service]);
     }
+
+    console.log("Updated service details:", newServiceDetails[service]);  // Debugging line
   };
 
   return (
