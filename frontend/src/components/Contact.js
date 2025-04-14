@@ -35,7 +35,7 @@ function Contact() {
   return (
     <section id="contact">
       <h2>Contact Us</h2>
-      <form id="contactForm" onSubmit={handleSubmit} autoComplete="on">
+      <form id="Contact" onSubmit={handleSubmit} autoComplete="on">
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
         <textarea name="message" placeholder="Your Message" required />
