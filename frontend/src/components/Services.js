@@ -1,4 +1,5 @@
 import React from 'react';
+import Audience from './Audience';  // Import Audience here
 
 function Services({ onServiceSelect }) {
   return (
@@ -18,6 +19,8 @@ function Services({ onServiceSelect }) {
           <p>We help connect sellers and buyers through competitive bidding.</p>
         </div>
       </div>
+
+      <Audience />  {/* Added Audience component here */}
     </section>
   );
 }

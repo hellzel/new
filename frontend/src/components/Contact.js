@@ -47,22 +47,10 @@ function Contact({ selectedServices }) {
         <input
           type="text"
           name="phone"
-          placeholder="Puhelinnumero"
+          placeholder="Phone Number"
           onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
           required
         />
-
-        {selectedServices.length > 0 && (
-          <div>
-            <h3>Selected Services:</h3>
-            <ul>
-              {selectedServices.map((s, i) => (
-                <li key={i}>{s}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
         <textarea
           name="message"
           placeholder="Write your message here..."
@@ -70,9 +58,17 @@ function Contact({ selectedServices }) {
           onChange={(e) => setMessage(e.target.value)}
           required
         />
-
+        {selectedServices.length > 0 && (
+          <div className="selected-services-preview">
+            <label>Selected Services:</label>
+            <ul>
+              {selectedServices.map((service, index) => (
+                <li key={index}>{service}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         <input type="file" name="attachment" accept="image/*" />
-
         <button type="submit">Send Message</button>
       </form>
       <p>{responseMessage}</p>

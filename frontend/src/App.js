@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Contact from './components/Contact';
 import Services from './components/Services';
@@ -19,14 +20,14 @@ function App() {
 
   const handleServiceSelect = (service) => {
     const descriptions = {
-      "Esineiden arviointi": "Haluatko tietää omistamasi designesineen, taidelasin, keramiikan, arvotaiteen tai muun arvoesineen rahallisen arvon?",
+      "Esineiden arviointi": "Haluatko tietää omistamasi designesineen, taidelasin, keramiikan, arvotaiteen tai muun arvoesineen rahallisen arvon?\nKokeneet asiantuntijamme arvioivat esineitä vuosien kokemuksella mm. huutokauppojen, kuolinpesien, keräilijöiden, kauppiaiden ja vakuutusyhtiöiden tarpeisiin.",
       "Alkuperän varmistus": "Voimme todentaa esineiden alkuperän, dokumentoida niiden omistushistorian sekä laatia kunto-arvion.",
       "Buyer Bidding": "Auction your items in a competitive environment. We handle everything from setup to bidding."
     };
 
     setSelectedServices((prev) => {
       if (prev.includes(service)) {
-        setServiceDetails("");
+        setServiceDetails(""); 
         return prev.filter(s => s !== service);
       } else {
         setServiceDetails(descriptions[service]);
@@ -36,15 +37,21 @@ function App() {
   };
 
   return (
-    <div>
+    <Router>
       <Header menuOpen={menuOpen} toggleMenu={toggleMenu} />
-      <Services onServiceSelect={handleServiceSelect} />
-      <SelectedServices selectedServices={selectedServices} serviceDetails={serviceDetails} />
-      <About />
-      <Audience />
-      <Contact selectedServices={selectedServices} />
+      
+      <Routes>
+        <Route path="/" element={<About />} />
+        <Route path="/services" element={<Services onServiceSelect={handleServiceSelect} />} />
+        <Route path="/audience" element={<Audience />} />
+        <Route path="/contact" element={<Contact selectedServices={selectedServices} />} />
+      </Routes>
+
+      {/* The selected services component should be shown on relevant pages */}
+      {selectedServices.length > 0 && <SelectedServices selectedServices={selectedServices} serviceDetails={serviceDetails} />}
+      
       <Footer />
-    </div>
+    </Router>
   );
 }
 

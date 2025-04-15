@@ -1,7 +1,7 @@
 import React from 'react';
 
 function SelectedServices({ selectedServices, serviceDetails }) {
-  console.log("Rendering SelectedServices, serviceDetails:", serviceDetails);  // Debugging line
+  console.log("Rendering SelectedServices, serviceDetails:", serviceDetails);
 
   return (
     <section id="selected-services">

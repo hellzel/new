@@ -535,3 +535,94 @@ nav {
     transform: scale(1.05);
     box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
+
+#contact .selected-services {
+    background-color: var(--highlight);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 1.5rem;
+}
+
+#contact .selected-services h3 {
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+#contact .selected-services ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#contact .selected-services ul li {
+    padding: 0.5rem 0;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+#contact textarea {
+    height: 150px; /* Give it more height for better readability */
+}
+
+#contact textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 5px var(--secondary);
+}
+
+.selected-services-preview {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-left: 4px solid #444;
+    border-radius: 4px;
+  }
+  
+  .selected-services-preview label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .selected-services-preview ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+  }
+  
+  .selected-services-preview li {
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+  }
+  
+/* About Section */
+#about {
+    background-color: var(--white);
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#about h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+#about h3 {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-top: 1.5rem;
+    font-weight: 600;
+}
+
+#about p {
+    font-size: 1.2rem;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
