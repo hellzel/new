@@ -8,6 +8,7 @@ import About from './components/About';
 import Audience from './components/Audience';
 import Footer from './components/Footer';
 import './styles/Provenienssi.css';
+import { LanguageProvider } from './contexts/languageContext'; 
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -37,21 +38,24 @@ function App() {
   };
 
   return (
-    <Router>
-      <Header menuOpen={menuOpen} toggleMenu={toggleMenu} />
-      
-      <Routes>
-        <Route path="/" element={<About />} />
-        <Route path="/services" element={<Services onServiceSelect={handleServiceSelect} />} />
-        <Route path="/audience" element={<Audience />} />
-        <Route path="/contact" element={<Contact selectedServices={selectedServices} />} />
-      </Routes>
+    <LanguageProvider>
+      <Router>
+        <Header menuOpen={menuOpen} toggleMenu={toggleMenu} />
 
-      {/* The selected services component should be shown on relevant pages */}
-      {selectedServices.length > 0 && <SelectedServices selectedServices={selectedServices} serviceDetails={serviceDetails} />}
-      
-      <Footer />
-    </Router>
+        <Routes>
+          <Route path="/" element={<About />} />
+          <Route path="/services" element={<Services onServiceSelect={handleServiceSelect} />} />
+          <Route path="/audience" element={<Audience />} />
+          <Route path="/contact" element={<Contact selectedServices={selectedServices} />} />
+        </Routes>
+
+        {selectedServices.length > 0 && (
+          <SelectedServices selectedServices={selectedServices} serviceDetails={serviceDetails} />
+        )}
+
+        <Footer />
+      </Router>
+    </LanguageProvider>
   );
 }
 

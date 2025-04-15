@@ -1,22 +1,26 @@
 import React from 'react';
+import { useLanguage } from '../contexts/languageContext';  // Importing useLanguage hook
 import Audience from './Audience';  // Import Audience here
 
 function Services({ onServiceSelect }) {
+  const { language, translations } = useLanguage();
+  const t = translations[language];  // Access translations based on selected language
+
   return (
     <section id="services">
-      <h2>Our Services</h2>
+      <h2>{t.servicesTitle}</h2>
       <div className="services-container">
-        <div className="service service-option" onClick={() => onServiceSelect("Esineiden arviointi")}>
-          <h3>Esineiden arviointi</h3>
-          <p>Get a professional evaluation of your valuable items.</p>
+        <div className="service service-option" onClick={() => onServiceSelect(t.service1Title)}>
+          <h3>{t.service1Title}</h3>
+          <p>{t.service1Desc}</p>
         </div>
-        <div className="service service-option" onClick={() => onServiceSelect("Alkuperän varmistus")}>
-          <h3>Alkuperän varmistus</h3>
-          <p>We research and verify the history and authenticity of your items.</p>
+        <div className="service service-option" onClick={() => onServiceSelect(t.service2Title)}>
+          <h3>{t.service2Title}</h3>
+          <p>{t.service2Desc}</p>
         </div>
-        <div className="service service-option" onClick={() => onServiceSelect("Buyer Bidding")}>
-          <h3>Buyer Bidding</h3>
-          <p>We help connect sellers and buyers through competitive bidding.</p>
+        <div className="service service-option" onClick={() => onServiceSelect(t.service3Title)}>
+          <h3>{t.service3Title}</h3>
+          <p>{t.service3Desc}</p>
         </div>
       </div>
 

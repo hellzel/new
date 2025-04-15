@@ -1,33 +1,27 @@
 import React from 'react';
-import museumImage from '../images/museum.jpg'; // Adjust path based on your folder structure
+import { useLanguage } from '../contexts/languageContext';
+import museumImage from '../images/museum.jpg';
 
 function About() {
+  const { language, translations } = useLanguage();
+  const t = translations[language] || translations['fi'];  // Default to 'fi' if translations are missing
+
   return (
     <section id="about">
       <div className="about-container">
-        <h2>Welcome to Provenienssi</h2>
-        <p className="intro-text">
-          We are a leading expert in provenance verification, led by Maria Ekman-Kolari.
-        </p>
+        <h2>{t.aboutTitle}</h2>
+        <p className="intro-text">{t.aboutText}</p>
         
         <img src={museumImage} alt="Museum representing provenance work" className="about-img" />
         
         <div className="about-details">
-          <h3>About Us</h3>
-          <p>
-            At Provenienssi, we specialize in assessing the provenance of valuable items such as art,
-            antiques, and collectibles. Our experienced experts provide thorough evaluation and
-            historical documentation, ensuring transparency and authenticity for our clients.
-          </p>
+          <h3>{t.aboutUs}</h3>
+          <p>{t.aboutUsText}</p>
         </div>
         
         <div className="team-info">
-          <h3>Meet Maria Ekman-Kolari</h3>
-          <p>
-            Maria is a recognized authority in the field of provenance research, bringing years of
-            expertise in evaluating fine art and collectibles. Her dedication to the craft ensures
-            clients receive the highest level of expertise and accuracy.
-          </p>
+          <h3>{t.meetMaria}</h3>
+          <p>{t.mariaText}</p>
         </div>
       </div>
     </section>

@@ -626,3 +626,40 @@ nav {
     line-height: 1.8;
     margin-bottom: 1.5rem;
 }
+
+/* Example of adjusting position */
+.language-toggle {
+    position: absolute;  /* Or use flexbox/grid positioning */
+    top: -1px;           /* Adjust based on your design */
+    left: 20px;         /* Adjust based on your design */
+  }
+  
+  .language-btn {
+    background-color: transparent;
+    border: none;
+    color: white;        /* Adjust based on your design */
+    font-size: 16px;     /* Adjust based on your design */
+    cursor: pointer;
+  }
+
+/* Hide the original file input */
+.file-input {
+    display: none;
+  }
+  
+  /* Style the custom button */
+  .file-input-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #797d81;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .file-input-label:hover {
+    background-color: #a9b4c0;
+  }
+  
