@@ -1,58 +1,51 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { LanguageProvider } from './contexts/languageContext';
 import Header from './components/Header';
-import Contact from './components/Contact';
-import Services from './components/Services';
-import SelectedServices from './components/SelectedServices';
 import About from './components/About';
+import Services from './components/Services';
 import Audience from './components/Audience';
+import Contact from './components/Contact';
+import SelectedServices from './components/SelectedServices';
 import Footer from './components/Footer';
 import './styles/Provenienssi.css';
-import { LanguageProvider } from './contexts/languageContext'; 
 
 function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  // Holds the keys of the services: 'service1', 'service2', 'service3'
   const [selectedServices, setSelectedServices] = useState([]);
-  const [serviceDetails, setServiceDetails] = useState("");
+  // Which one’s detail to show
+  const [detailKey, setDetailKey] = useState(null);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
-  const handleServiceSelect = (service) => {
-    const descriptions = {
-      "Esineiden arviointi": "Haluatko tietää omistamasi designesineen, taidelasin, keramiikan, arvotaiteen tai muun arvoesineen rahallisen arvon?\nKokeneet asiantuntijamme arvioivat esineitä vuosien kokemuksella mm. huutokauppojen, kuolinpesien, keräilijöiden, kauppiaiden ja vakuutusyhtiöiden tarpeisiin.",
-      "Alkuperän varmistus": "Voimme todentaa esineiden alkuperän, dokumentoida niiden omistushistorian sekä laatia kunto-arvion.",
-      "Buyer Bidding": "Auction your items in a competitive environment. We handle everything from setup to bidding."
-    };
-
-    setSelectedServices((prev) => {
-      if (prev.includes(service)) {
-        setServiceDetails(""); 
-        return prev.filter(s => s !== service);
-      } else {
-        setServiceDetails(descriptions[service]);
-        return [...prev, service];
+  const handleServiceSelect = (key) => {
+    setSelectedServices(prev => {
+      if (prev.includes(key)) {
+        // deselect
+        setDetailKey(null);
+        return prev.filter(k => k !== key);
       }
+      // limit to 3
+      if (prev.length >= 3) return prev;
+      setDetailKey(key);
+      return [...prev, key];
     });
   };
 
   return (
     <LanguageProvider>
       <Router>
-        <Header menuOpen={menuOpen} toggleMenu={toggleMenu} />
-
+        <Header />
         <Routes>
           <Route path="/" element={<About />} />
           <Route path="/services" element={<Services onServiceSelect={handleServiceSelect} />} />
           <Route path="/audience" element={<Audience />} />
           <Route path="/contact" element={<Contact selectedServices={selectedServices} />} />
         </Routes>
-
         {selectedServices.length > 0 && (
-          <SelectedServices selectedServices={selectedServices} serviceDetails={serviceDetails} />
+          <SelectedServices
+            selectedServices={selectedServices}
+            detailKey={detailKey}
+          />
         )}
-
         <Footer />
       </Router>
     </LanguageProvider>

@@ -40,7 +40,7 @@ export const translations = {
     thankYouMessage: 'Thank you! Your message has been sent.',
     errorMessage: 'Unknown error occurred.',
     serverError: 'Could not connect to server.',
-    fileUploadLabel: 'Choose file',  // Added translation for file input
+    fileUploadLabel: 'Choose file',
 
     // Footer
     email: 'Email',
@@ -57,10 +57,20 @@ export const translations = {
     servicesTitle: 'Our Services',
     service1Title: 'Item Evaluation',
     service1Desc: 'Get a professional evaluation of your valuable items.',
+    service1Detail: `Do you want to know the monetary value of your design piece,
+                    art glass, ceramic, fine art or other collectible? \n\n Our experts,
+                    with years of experience in auctions, estates, collectors,
+                    dealers and insurance valuations, will give you an accurate appraisal.`,
+
     service2Title: 'Provenance Verification',
     service2Desc: 'We research and verify the history and authenticity of your items.',
+    service2Detail: `We can authenticate the origin of your items, document their
+                      ownership history, and provide you with a condition report.`,
+
     service3Title: 'Buyer Bidding',
     service3Desc: 'We help connect sellers and buyers through competitive bidding.',
+    service3Detail: `Auction your items in a competitive environment. We handle
+                      everything from setup to bidding through to final sale.`,
   },
 
   fi: {
@@ -98,7 +108,7 @@ export const translations = {
     thankYouMessage: 'Kiitos! Viestisi on lähetetty.',
     errorMessage: 'Tuntematon virhe.',
     serverError: 'Yhteyteen ei saatu yhteyttä.',
-    fileUploadLabel: 'Valitse tiedosto',  // Added translation for file input
+    fileUploadLabel: 'Valitse tiedosto',
 
     // Footer
     email: 'Sähköposti',
@@ -115,16 +125,27 @@ export const translations = {
     servicesTitle: 'Palvelumme',
     service1Title: 'Esineiden arviointi',
     service1Desc: 'Hanki ammatillinen arviointi arvokkaista esineistäsi.',
+    service1Detail: `Haluatko tietää omistamasi designesineen, taidelasin,
+keramiikan, arvotaiteen tai muun arvoesineen rahallisen arvon? \n\n
+Kokeneet asiantuntijamme arvioivat esineitä vuosien kokemuksella
+mm. huutokauppojen, kuolinpesien, keräilijöiden, kauppiaiden ja
+vakuutusyhtiöiden tarpeisiin.`,
+
     service2Title: 'Alkuperän varmistus',
     service2Desc: 'Selvitämme ja varmistamme esineiden historian ja aitouden.',
+    service2Detail: `Voimme todentaa esineiden alkuperän, dokumentoida niiden
+omistushistorian sekä laatia kunto‑arvion.`,
+
     service3Title: 'Ostajan huutokauppa',
     service3Desc: 'Autamme yhdistämään myyjät ja ostajat kilpailullisen huutokaupan kautta.',
+    service3Detail: `Autamme järjestämään huutokaupan, jossa myyjät ja ostajat
+kilpailevat esineistäsi aina aloituksesta kauppaan asti.`,
   },
 };
 
 // LanguageProvider component to wrap the app and provide language state
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState('fi');  // Default language is Finnish
+  const [language, setLanguage] = useState('fi'); // Default language is Finnish
 
   const toggleLanguage = () => {
     setLanguage((prevLanguage) => (prevLanguage === 'fi' ? 'en' : 'fi'));
