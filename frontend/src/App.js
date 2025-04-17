@@ -11,19 +11,24 @@ import Footer from './components/Footer';
 import './styles/Provenienssi.css';
 
 function App() {
-  // Holds the keys of the services: 'service1', 'service2', 'service3'
+  const [menuOpen, setMenuOpen] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
-  // Which one’s detail to show
+  const [serviceDetails, setServiceDetails] = useState("");
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+  // which service's detail to show (same key)
   const [detailKey, setDetailKey] = useState(null);
 
   const handleServiceSelect = (key) => {
     setSelectedServices(prev => {
+      // if already selected, deselect it
       if (prev.includes(key)) {
-        // deselect
         setDetailKey(null);
         return prev.filter(k => k !== key);
       }
-      // limit to 3
+      // otherwise, limit to 3
       if (prev.length >= 3) return prev;
       setDetailKey(key);
       return [...prev, key];
@@ -33,19 +38,29 @@ function App() {
   return (
     <LanguageProvider>
       <Router>
-        <Header />
+      <Header menuOpen={menuOpen} toggleMenu={toggleMenu} />
+
         <Routes>
           <Route path="/" element={<About />} />
-          <Route path="/services" element={<Services onServiceSelect={handleServiceSelect} />} />
+          <Route
+            path="/services"
+            element={<Services onServiceSelect={handleServiceSelect} />}
+          />
           <Route path="/audience" element={<Audience />} />
-          <Route path="/contact" element={<Contact selectedServices={selectedServices} />} />
+          <Route
+            path="/contact"
+            element={<Contact selectedServices={selectedServices} />}
+          />
         </Routes>
+
         {selectedServices.length > 0 && (
           <SelectedServices
             selectedServices={selectedServices}
             detailKey={detailKey}
+            onServiceDeselect={handleServiceSelect}
           />
         )}
+
         <Footer />
       </Router>
     </LanguageProvider>

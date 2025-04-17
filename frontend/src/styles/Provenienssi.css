@@ -470,20 +470,6 @@ nav {
     box-shadow: 0 4px 15px var(--glow-color);
 }
 
-.selected-service .circle {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    border: 2px solid var(--primary);
-    background-color: transparent;
-    transition: background-color 0.3s, box-shadow 0.3s ease-in-out;
-}
-
-.selected-service.selected .circle {
-    background-color: var(--secondary);
-    box-shadow: 0 0 8px var(--glow-color);
-}
-
 #audience {
     background-color: var(--highlight);
     padding: 4rem 2rem;
@@ -662,4 +648,56 @@ nav {
   .file-input-label:hover {
     background-color: #a9b4c0;
   }
-  
+  .selected-service {
+    background-color: var(--white);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    gap: 1rem;
+    font-size: 1.2rem;
+    color: var(--primary);
+    position: relative; /* Keep the button positioned relative to the container */
+    margin-bottom: 10px;
+    height: 100px; /* Optional: set a fixed height to ensure it's centered vertically */
+}
+
+.selected-service:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px var(--glow-color);
+}
+
+.remove-btn {
+    background: var(--secondary);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    color: var(--white);
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 28px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: none;
+    outline: none;
+    position: absolute; /* Absolute positioning inside the container */
+    top: 0; /* Move button to the top */
+    right: 0; /* Move button to the right */
+}
+
+.remove-btn:hover {
+    background-color: var(--primary);
+    transform: scale(1.1);
+}
+
+.remove-btn:focus {
+    outline: none;
+    box-shadow: 0 0 8px var(--glow-color);
+}
