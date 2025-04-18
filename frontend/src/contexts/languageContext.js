@@ -37,9 +37,9 @@ export const translations = {
     messagePlaceholder: 'Write your message here...',
     selectedServicesLabel: 'Selected Services:',
     submitButton: 'Send Message',
-    thankYouMessage: 'Thank you! Your message has been sent.',
-    errorMessage: 'Unknown error occurred.',
-    serverError: 'Could not connect to server.',
+    thankYouMessage: '✅ Thank you! Your message has been sent.',
+    errorMessage: '❌Unknown error occurred.',
+    serverError: '❌Could not connect to server.',
     fileUploadLabel: 'Choose file',
 
     // Footer
@@ -105,9 +105,9 @@ export const translations = {
     messagePlaceholder: 'Kirjoita viestisi tähän...',
     selectedServicesLabel: 'Valitut palvelut:',
     submitButton: 'Lähetä viesti',
-    thankYouMessage: 'Kiitos! Viestisi on lähetetty.',
-    errorMessage: 'Tuntematon virhe.',
-    serverError: 'Yhteyteen ei saatu yhteyttä.',
+    thankYouMessage: '✅ Kiitos! Viestisi on lähetetty.',
+    errorMessage: '❌Tuntematon virhe.',
+    serverError: '❌Palvelimeen ei saatu yhteyttä.',
     fileUploadLabel: 'Valitse tiedosto',
 
     // Footer

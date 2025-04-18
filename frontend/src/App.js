@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { LanguageProvider } from './contexts/languageContext';
 import Header from './components/Header';
 import About from './components/About';
@@ -10,25 +10,23 @@ import SelectedServices from './components/SelectedServices';
 import Footer from './components/Footer';
 import './styles/Provenienssi.css';
 
-function App() {
+// App content with routing logic
+function AppContent() {
+  const location = useLocation(); // Track current route
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
-  const [serviceDetails, setServiceDetails] = useState("");
+  const [detailKey, setDetailKey] = useState(null);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
-  // which service's detail to show (same key)
-  const [detailKey, setDetailKey] = useState(null);
 
   const handleServiceSelect = (key) => {
     setSelectedServices(prev => {
-      // if already selected, deselect it
       if (prev.includes(key)) {
         setDetailKey(null);
         return prev.filter(k => k !== key);
       }
-      // otherwise, limit to 3
       if (prev.length >= 3) return prev;
       setDetailKey(key);
       return [...prev, key];
@@ -36,32 +34,42 @@ function App() {
   };
 
   return (
-    <LanguageProvider>
-      <Router>
+    <>
       <Header menuOpen={menuOpen} toggleMenu={toggleMenu} />
 
-        <Routes>
-          <Route path="/" element={<About />} />
-          <Route
-            path="/services"
-            element={<Services onServiceSelect={handleServiceSelect} />}
-          />
-          <Route path="/audience" element={<Audience />} />
-          <Route
-            path="/contact"
-            element={<Contact selectedServices={selectedServices} />}
-          />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<About />} />
+        <Route
+          path="/services"
+          element={<Services onServiceSelect={handleServiceSelect} />}
+        />
+        <Route path="/audience" element={<Audience />} />
+        <Route
+          path="/contact"
+          element={<Contact selectedServices={selectedServices} />}
+        />
+      </Routes>
 
-        {selectedServices.length > 0 && (
-          <SelectedServices
-            selectedServices={selectedServices}
-            detailKey={detailKey}
-            onServiceDeselect={handleServiceSelect}
-          />
-        )}
+      {/* ✅ Only show this on /services */}
+      {location.pathname === '/services' && selectedServices.length > 0 && (
+        <SelectedServices
+          selectedServices={selectedServices}
+          detailKey={detailKey}
+          onServiceDeselect={handleServiceSelect}
+        />
+      )}
 
-        <Footer />
+      <Footer />
+    </>
+  );
+}
+
+// Wrap it all with Router and Language context
+function App() {
+  return (
+    <LanguageProvider>
+      <Router>
+        <AppContent />
       </Router>
     </LanguageProvider>
   );

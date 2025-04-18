@@ -1,45 +1,34 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useLanguage } from '../contexts/languageContext'; // Importing useLanguage hook
+import { useLanguage } from '../contexts/languageContext';
 
 function Contact({ selectedServices }) {
   const [responseMessage, setResponseMessage] = useState("");
   const [message, setMessage] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const { language, translations } = useLanguage();
-  const t = translations[language]; // Access translations based on selected language
+  const t = translations[language];
 
   const [translatedServices, setTranslatedServices] = useState([]);
 
-  // Wrap translateService in useCallback to memoize it
   const translateService = useCallback((service) => {
     switch (service) {
-      case 'Item Evaluation':
-        return t.service1Title;
-      case 'Provenance Verification':
-        return t.service2Title;
-      case 'Buyer Bidding':
-        return t.service3Title;
-      case 'Auctions':
-        return t.auctions;
-      case 'Galleries':
-        return t.galleries;
-      case 'Collectors':
-        return t.collectors;
-      case 'Dealers':
-        return t.dealers;
-      case 'Estates':
-        return t.estates;
-      case 'Insurance Companies':
-        return t.insurance;
-      default:
-        return service; // Return the service name if no translation found
+      case 'Item Evaluation': return t.service1Title;
+      case 'Provenance Verification': return t.service2Title;
+      case 'Buyer Bidding': return t.service3Title;
+      case 'Auctions': return t.auctions;
+      case 'Galleries': return t.galleries;
+      case 'Collectors': return t.collectors;
+      case 'Dealers': return t.dealers;
+      case 'Estates': return t.estates;
+      case 'Insurance Companies': return t.insurance;
+      default: return service;
     }
-  }, [t]); // Add t as a dependency
+  }, [t]);
 
-  // Effect to translate selected services when language changes
   useEffect(() => {
-    const translateSelectedServices = selectedServices.map(translateService);
-    setTranslatedServices(translateSelectedServices);
-  }, [language, selectedServices, translateService]); // Add translateService to the dependency array
+    const translated = selectedServices.map(translateService);
+    setTranslatedServices(translated);
+  }, [language, selectedServices, translateService]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,9 +39,8 @@ function Contact({ selectedServices }) {
     formData.append("phone", e.target.phone.value);
     formData.append("message", message);
     formData.append("services", translatedServices.join(", "));
-
-    if (e.target.attachment.files[0]) {
-      formData.append("attachment", e.target.attachment.files[0]);
+    if (selectedFile) {
+      formData.append("attachment", selectedFile);
     }
 
     try {
@@ -66,6 +54,7 @@ function Contact({ selectedServices }) {
       if (res.ok) {
         setResponseMessage(t.thankYouMessage);
         setMessage("");
+        setSelectedFile(null);
       } else {
         setResponseMessage(`❌ ${t.errorMessage}: ${result.error || 'Unknown error occurred'}`);
       }
@@ -73,6 +62,10 @@ function Contact({ selectedServices }) {
       setResponseMessage(t.serverError);
       console.error(error);
     }
+  };
+
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
   };
 
   return (
@@ -95,6 +88,7 @@ function Contact({ selectedServices }) {
           onChange={(e) => setMessage(e.target.value)}
           required
         />
+
         {translatedServices.length > 0 && (
           <div className="selected-services-preview">
             <label>{t.selectedServicesLabel}</label>
@@ -106,7 +100,7 @@ function Contact({ selectedServices }) {
           </div>
         )}
 
-        {/* Custom file input button */}
+        {/* File input */}
         <div className="file-input-container">
           <input
             type="file"
@@ -114,9 +108,15 @@ function Contact({ selectedServices }) {
             accept="image/*"
             id="attachment"
             className="file-input"
+            onChange={handleFileChange}
             style={{ display: 'none' }}
           />
-          <label htmlFor="attachment" className="file-input-label">{t.fileUploadLabel}</label>
+          <label htmlFor="attachment" className="file-input-label">
+            {selectedFile ? t.changeFileLabel || "Change file" : t.fileUploadLabel}
+          </label>
+          {selectedFile && (
+            <p className="file-name">{t.selectedFileLabel || "Selected file"}: {selectedFile.name}</p>
+          )}
         </div>
 
         <button type="submit">{t.submitButton}</button>
