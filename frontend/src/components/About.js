@@ -1,30 +1,43 @@
 import React from 'react';
 import { useLanguage } from '../contexts/languageContext';
+import FadeInSection from './FadeInSection';
 import museumImage from '../images/museum.jpg';
 
 function About() {
   const { language, translations } = useLanguage();
-  const t = translations[language] || translations['fi'];  // Default to 'fi' if translations are missing
+  const t = translations[language] || translations['fi'];
+
+  // Split the aboutUsText on double-newline into paragraphs
+  const aboutParas = t.aboutUsText.split('\n\n');
 
   return (
-    <section id="about">
-      <div className="about-container">
-        <h2>{t.aboutTitle}</h2>
-        <p className="intro-text">{t.aboutText}</p>
-        
-        <img src={museumImage} alt="Museum representing provenance work" className="about-img" />
-        
-        <div className="about-details">
-          <h3>{t.aboutUs}</h3>
-          <p>{t.aboutUsText}</p>
+    <FadeInSection>
+      <section id="about" className="about-section">
+        <div className="about-container">
+          <div className="about-content">
+            <h2 className="about-title">{t.aboutTitle}</h2>
+            <p className="about-text">{t.aboutText}</p>
+
+            <div className="about-details">
+              <h3 className="about-subtitle">{t.aboutUs}</h3>
+              {aboutParas.map((para, idx) => (
+                <p key={idx} className="about-description">
+                  {para}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          <div className="about-image-container">
+            <img
+              src={museumImage}
+              alt="Museum representing provenance work"
+              className="about-image"
+            />
+          </div>
         </div>
-        
-        <div className="team-info">
-          <h3>{t.meetMaria}</h3>
-          <p>{t.mariaText}</p>
-        </div>
-      </div>
-    </section>
+      </section>
+    </FadeInSection>
   );
 }
 

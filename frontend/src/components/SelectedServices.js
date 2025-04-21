@@ -1,33 +1,43 @@
+// src/components/SelectedServices.js
 import React, { useEffect, useRef } from 'react';
 import { useLanguage } from '../contexts/languageContext';
+import { useNavigate } from 'react-router-dom';
 
-function SelectedServices({ selectedServices, detailKey, onServiceDeselect }) {
+export default function SelectedServices({
+  selectedServices,
+  detailKey,
+  onServiceDeselect
+}) {
   const { language, translations } = useLanguage();
   const t = translations[language];
   const sectionRef = useRef(null);
+  const navigate = useNavigate();
 
-  // Scroll into view whenever the user selects/deselects a service
+  // Auto-scroll into view on updates
   useEffect(() => {
-    if (selectedServices.length > 0) {
+    if (selectedServices.length) {
       sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [selectedServices]);
+
+  const translateKey = (key) => {
+    switch (key) {
+      case 'service1': return t.service1Title;
+      case 'service2': return t.service2Title;
+      case 'service3': return t.service3Title;
+      default: return key;
+    }
+  };
 
   return (
     <section id="selected-services" ref={sectionRef}>
       <h2>{t.selectedServicesTitle}</h2>
 
       <div id="selected-services-list">
-        {selectedServices.map((key) => (
-          <div key={key} className="selected-service">
-            <div
-              className="circle"
-              onClick={() => onServiceDeselect(key)}
-              title={t.removeService || 'Remove'}
-              style={{ cursor: 'pointer' }}
-            />
-            <span>
-              {t[`${key}Title`]}
+        {selectedServices.length > 0 ? (
+          selectedServices.map(key => (
+            <div key={key} className="selected-service">
+              <span>{translateKey(key)}</span>
               <button
                 type="button"
                 className="remove-btn"
@@ -36,9 +46,11 @@ function SelectedServices({ selectedServices, detailKey, onServiceDeselect }) {
               >
                 ×
               </button>
-            </span>
-          </div>
-        ))}
+            </div>
+          ))
+        ) : (
+          <p>{t.noSelectedServices}</p>
+        )}
       </div>
 
       {detailKey && (
@@ -49,8 +61,17 @@ function SelectedServices({ selectedServices, detailKey, onServiceDeselect }) {
           </p>
         </div>
       )}
+
+      {selectedServices.length > 0 && (
+        <div className="proceed-container">
+          <button
+            className="proceed-to-contact"
+            onClick={() => navigate('/contact')}
+          >
+            {t.proceedButtonText}
+          </button>
+        </div>
+      )}
     </section>
   );
 }
-
-export default SelectedServices;

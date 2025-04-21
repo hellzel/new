@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '../contexts/languageContext';
+import FadeInSection from './FadeInSection'; // ✅ import fade wrapper
 
 function Contact({ selectedServices }) {
   const [responseMessage, setResponseMessage] = useState("");
@@ -69,60 +70,69 @@ function Contact({ selectedServices }) {
   };
 
   return (
-    <section id="contact">
-      <h2>{t.contactTitle}</h2>
-      <form id="Contact" onSubmit={handleSubmit} autoComplete="on" encType="multipart/form-data">
-        <input type="text" name="name" placeholder={t.namePlaceholder} required />
-        <input type="email" name="email" placeholder={t.emailPlaceholder} required />
-        <input
-          type="text"
-          name="phone"
-          placeholder={t.phonePlaceholder}
-          onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
-          required
-        />
-        <textarea
-          name="message"
-          placeholder={t.messagePlaceholder}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          required
-        />
-
-        {translatedServices.length > 0 && (
-          <div className="selected-services-preview">
-            <label>{t.selectedServicesLabel}</label>
-            <ul>
-              {translatedServices.map((service, index) => (
-                <li key={index}>{service}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* File input */}
-        <div className="file-input-container">
+    <FadeInSection> {/* ✅ Wrap the entire section */}
+      <section id="contact">
+        <h2>{t.contactTitle}</h2>
+        <form
+          id="Contact"
+          onSubmit={handleSubmit}
+          autoComplete="on"
+          encType="multipart/form-data"
+        >
+          <input type="text" name="name" placeholder={t.namePlaceholder} required />
+          <input type="email" name="email" placeholder={t.emailPlaceholder} required />
           <input
-            type="file"
-            name="attachment"
-            accept="image/*"
-            id="attachment"
-            className="file-input"
-            onChange={handleFileChange}
-            style={{ display: 'none' }}
+            type="text"
+            name="phone"
+            placeholder={t.phonePlaceholder}
+            onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
+            required
           />
-          <label htmlFor="attachment" className="file-input-label">
-            {selectedFile ? t.changeFileLabel || "Change file" : t.fileUploadLabel}
-          </label>
-          {selectedFile && (
-            <p className="file-name">{t.selectedFileLabel || "Selected file"}: {selectedFile.name}</p>
-          )}
-        </div>
+          <textarea
+            name="message"
+            placeholder={t.messagePlaceholder}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            required
+          />
 
-        <button type="submit">{t.submitButton}</button>
-      </form>
-      <p>{responseMessage}</p>
-    </section>
+          {translatedServices.length > 0 && (
+            <div className="selected-services-preview">
+              <label>{t.selectedServicesLabel}</label>
+              <ul>
+                {translatedServices.map((service, index) => (
+                  <li key={index}>{service}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* File input */}
+          <div className="file-input-container">
+            <input
+              type="file"
+              name="attachment"
+              accept="image/*"
+              id="attachment"
+              className="file-input"
+              onChange={handleFileChange}
+              style={{ display: 'none' }}
+            />
+            <label htmlFor="attachment" className="file-input-label">
+              {selectedFile ? t.changeFileLabel || "Change file" : t.fileUploadLabel}
+            </label>
+            {selectedFile && (
+              <p className="file-name">
+                {t.selectedFileLabel || "Selected file"}: {selectedFile.name}
+              </p>
+            )}
+          </div>
+
+          <button type="submit">{t.submitButton}</button>
+        </form>
+        <p>{responseMessage}</p>
+      </section>
+    </FadeInSection>
   );
 }
 

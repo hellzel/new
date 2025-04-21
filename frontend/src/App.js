@@ -8,11 +8,11 @@ import Audience from './components/Audience';
 import Contact from './components/Contact';
 import SelectedServices from './components/SelectedServices';
 import Footer from './components/Footer';
+import HeroSection from './components/hero/HeroSection';
 import './styles/Provenienssi.css';
 
-// App content with routing logic
 function AppContent() {
-  const location = useLocation(); // Track current route
+  const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
   const [detailKey, setDetailKey] = useState(null);
@@ -22,10 +22,10 @@ function AppContent() {
   };
 
   const handleServiceSelect = (key) => {
-    setSelectedServices(prev => {
+    setSelectedServices((prev) => {
       if (prev.includes(key)) {
         setDetailKey(null);
-        return prev.filter(k => k !== key);
+        return prev.filter((k) => k !== key);
       }
       if (prev.length >= 3) return prev;
       setDetailKey(key);
@@ -36,21 +36,14 @@ function AppContent() {
   return (
     <>
       <Header menuOpen={menuOpen} toggleMenu={toggleMenu} />
-
       <Routes>
-        <Route path="/" element={<About />} />
-        <Route
-          path="/services"
-          element={<Services onServiceSelect={handleServiceSelect} />}
-        />
+        <Route path="/" element={<HeroSection />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services onServiceSelect={handleServiceSelect} />} />
         <Route path="/audience" element={<Audience />} />
-        <Route
-          path="/contact"
-          element={<Contact selectedServices={selectedServices} />}
-        />
+        <Route path="/contact" element={<Contact selectedServices={selectedServices} />} />
       </Routes>
 
-      {/* ✅ Only show this on /services */}
       {location.pathname === '/services' && selectedServices.length > 0 && (
         <SelectedServices
           selectedServices={selectedServices}
@@ -64,7 +57,6 @@ function AppContent() {
   );
 }
 
-// Wrap it all with Router and Language context
 function App() {
   return (
     <LanguageProvider>
