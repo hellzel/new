@@ -616,8 +616,8 @@ nav {
 /* Example of adjusting position */
 .language-toggle {
     position: absolute;  /* Or use flexbox/grid positioning */
-    top: -10px;           /* Adjust based on your design */
-    left: 20px;         /* Adjust based on your design */
+    top: 22px;           /* Adjust based on your design */
+    right: 70px;         /* Adjust based on your design */
   }
   
   .language-btn {
@@ -782,9 +782,7 @@ nav {
     transform: translateY(-2px);
   }
 
-/* =========================
-   About Section (Spiced Up)
-   ========================= */
+
    .about-section {
     position: relative;
     padding: 6rem 2rem;
@@ -922,5 +920,178 @@ nav {
     .about-description {
       font-size: 1rem;
     }
+  }
+
+  /* ─── Services Section Glow‑Up ───────────────────────────────────────────── */
+
+/* General services section */
+#services {
+    background: linear-gradient(to bottom, var(--highlight) 0%, var(--bg) 100%);
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+#services h2 {
+    font-size: 2.75rem;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 3rem;
+    font-weight: 700;
+    position: relative;
+}
+
+#services h2::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background-color: var(--secondary);
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+}
+
+/* Services container */
+.services-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* Each service card */
+.service-option {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    cursor: default; /* no longer full-card click */
+    position: relative;
+}
+
+/* Accent stripe on the left */
+.service-option::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background-color: var(--secondary);
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+/* Service title styling */
+.service-option h3 {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Service description styling */
+.service-option p {
+    color: var(--text);
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+/* Hover effect - stays when selected */
+.service-option:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px var(--glow-color);
+}
+
+/* Selected state */
+.service-option.selected {
+    background-color: var(--white); /* No change to the card */
+    color: var(--primary); /* Keep text color */
+}
+
+/* Circle badge in the top-right (optional) */
+.service-option .circle {
+    width: 10px;
+    height: 10px;
+    background: var(--secondary);
+    border-radius: 50%;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+/* Select button styling */
+.select-btn {
+    margin-top: 1.5rem;
+    align-self: flex-start;
+    background-color: var(--secondary);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect for button */
+.select-btn:hover {
+    background-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* Selected state for button */
+.select-btn.selected {
+    background-color: var(--primary); /* Keeps selected button color */
+    color: var(--white); /* Ensure text is visible */
+}
+
+  
+  /* Responsive tweaks */
+  @media (max-width: 768px) {
+    #services {
+      padding: 4rem 1rem;
+    }
+    #services h2 {
+      font-size: 2.25rem;
+    }
+    .services-container {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+  
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .logo-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .text-logo {
+    text-decoration: none; 
+    color: inherit; 
+    display: flex;
+    flex-direction: column;
+    font-family: 'Georgia', serif;
+    line-height: 1.1;
+  }
+  
+  .logo-main {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #ffffffd0; /* Set your desired color explicitly */
+  }
+  
+  .logo-sub {
+    font-size: 0.9rem;
+    color: #7c7c7c;
   }
   

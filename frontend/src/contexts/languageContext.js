@@ -1,16 +1,20 @@
 import React, { createContext, useContext, useState } from 'react';
 
-// Create a Context for the language
+// Luodaan konteksti kielelle
 const LanguageContext = createContext();
 
-// Define translations for different languages
+// Määritellään kielikohtaiset käännökset
 export const translations = {
   en: {
     // Header
     home: 'Home',
     services: 'Services',
-    contact: 'Contact',
+    contact: 'Contact us',
     language: 'Suomeksi',
+
+    // Logo
+    logoMain: 'Provenance',
+    logoSub: 'Specialists in Valuation and Origin',
 
     // Hero
     heroHeadline: 'Unlock the Story Behind Your Possessions',
@@ -20,7 +24,7 @@ export const translations = {
 
     // About
     aboutTitle: 'Welcome to Provenienssi',
-    aboutText: 'We are a leading expert in provenance verification, led by Maria Ekman-Kolari.',
+    aboutText: 'We are a leading expert in provenance verification.',
     aboutUs: 'About Us',
     aboutUsText:
       'At Provenienssi, we specialize in assessing the provenance of valuable items such as art, antiques, and collectibles. Our experienced experts provide thorough evaluation and historical documentation, ensuring transparency and authenticity for our clients.',
@@ -56,11 +60,13 @@ ownership history, and provide you with a condition report.`,
     service3Detail: `Auction your items in a competitive environment. We handle
 everything from setup to bidding through to final sale.`,
 
+    // Button labels
+    selectButton: 'Select',
+    selectedButton: 'Selected',
+
     // SelectedServices
     selectedServicesTitle: 'Selected Services',
     serviceDetailsTitle: 'Service Details',
-
-    // New translations for SelectedServices
     noSelectedServices: 'No services selected.',
     proceedButtonText: 'Proceed to book your services →',
 
@@ -89,8 +95,12 @@ everything from setup to bidding through to final sale.`,
     // Header
     home: 'Etusivu',
     services: 'Palvelut',
-    contact: 'Yhteystiedot',
+    contact: 'Ota yhteyttä',
     language: 'In English',
+
+    // Logo
+    logoMain: 'Provenienssi',
+    logoSub: 'Asiantuntija-arviointi ja alkuperä',
 
     // Hero
     heroHeadline: 'Avaa Esineidesi Tarina',
@@ -137,16 +147,18 @@ omistushistorian sekä laatia kunto‑arvion.`,
     service3Detail: `Autamme järjestämään huutokaupan, jossa myyjät ja ostajat
 kilpailevat esineistäsi aina aloituksesta kauppaan asti.`,
 
+    // Button labels
+    selectButton: 'Valitse',
+    selectedButton: 'Valittu',
+
     // SelectedServices
     selectedServicesTitle: 'Valitut palvelut',
     serviceDetailsTitle: 'Palvelun tiedot',
-
-    // New translations for SelectedServices
     noSelectedServices: 'Ei valittuja palveluja.',
     proceedButtonText: 'Jatka varataksesi palvelut →',
 
     // Contact
-    contactTitle: 'Ota yhteyttä',
+    contactTitle: 'Ota Yhteyttä',
     namePlaceholder: 'Nimesi',
     emailPlaceholder: 'Sähköposti',
     phonePlaceholder: 'Puhelinnumero',
@@ -167,9 +179,9 @@ kilpailevat esineistäsi aina aloituksesta kauppaan asti.`,
   },
 };
 
-// LanguageProvider component to wrap the app and provide language state
+// Tarjoaa kielitilan koko sovellukselle
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState('fi'); // Default language is Finnish
+  const [language, setLanguage] = useState('fi'); // Oletuskieli: suomi
 
   const toggleLanguage = () => {
     setLanguage((prevLanguage) => (prevLanguage === 'fi' ? 'en' : 'fi'));
@@ -182,7 +194,7 @@ export function LanguageProvider({ children }) {
   );
 }
 
-// Custom hook to use language context
+// Kustomoitu hook kielen käyttämiseen
 export function useLanguage() {
   return useContext(LanguageContext);
 }

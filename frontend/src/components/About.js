@@ -3,6 +3,7 @@ import { useLanguage } from '../contexts/languageContext';
 import FadeInSection from './FadeInSection';
 import museumImage from '../images/museum.jpg';
 
+
 function About() {
   const { language, translations } = useLanguage();
   const t = translations[language] || translations['fi'];

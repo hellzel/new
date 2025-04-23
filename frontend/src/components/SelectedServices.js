@@ -1,4 +1,3 @@
-// src/components/SelectedServices.js
 import React, { useEffect, useRef } from 'react';
 import { useLanguage } from '../contexts/languageContext';
 import { useNavigate } from 'react-router-dom';
@@ -13,14 +12,13 @@ export default function SelectedServices({
   const sectionRef = useRef(null);
   const navigate = useNavigate();
 
-  // Auto-scroll into view on updates
   useEffect(() => {
     if (selectedServices.length) {
       sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [selectedServices]);
 
-  const translateKey = (key) => {
+  const translateKey = key => {
     switch (key) {
       case 'service1': return t.service1Title;
       case 'service2': return t.service2Title;
@@ -32,14 +30,12 @@ export default function SelectedServices({
   return (
     <section id="selected-services" ref={sectionRef}>
       <h2>{t.selectedServicesTitle}</h2>
-
       <div id="selected-services-list">
         {selectedServices.length > 0 ? (
           selectedServices.map(key => (
             <div key={key} className="selected-service">
               <span>{translateKey(key)}</span>
               <button
-                type="button"
                 className="remove-btn"
                 onClick={() => onServiceDeselect(key)}
                 aria-label={t.removeService || 'Remove service'}

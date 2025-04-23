@@ -3,30 +3,39 @@ import { useLanguage } from '../contexts/languageContext';
 import Audience from './Audience';
 import FadeInSection from './FadeInSection';
 
-function Services({ onServiceSelect }) {
+function Services({ selectedServices, onServiceSelect }) {
   const { language, translations } = useLanguage();
   const t = translations[language];
+
+  const serviceTitles = [
+    { key: 'service1', title: t.service1Title, description: t.service1Desc },
+    { key: 'service2', title: t.service2Title, description: t.service2Desc },
+    { key: 'service3', title: t.service3Title, description: t.service3Desc },
+  ];
+
+  const isSelected = (key) => selectedServices.includes(key);
 
   return (
     <FadeInSection>
       <section id="services">
         <h2>{t.servicesTitle}</h2>
         <div className="services-container">
-          <div className="service service-option" onClick={() => onServiceSelect('service1')}>
-            <h3>{t.service1Title}</h3>
-            <p>{t.service1Desc}</p>
-          </div>
-          <div className="service service-option" onClick={() => onServiceSelect('service2')}>
-            <h3>{t.service2Title}</h3>
-            <p>{t.service2Desc}</p>
-          </div>
-          <div className="service service-option" onClick={() => onServiceSelect('service3')}>
-            <h3>{t.service3Title}</h3>
-            <p>{t.service3Desc}</p>
-          </div>
+          {serviceTitles.map((service) => (
+            <div
+              key={service.key}
+              className={`service service-option ${isSelected(service.key) ? 'selected' : ''}`}
+            >
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+              <button
+                className={`select-btn ${isSelected(service.key) ? 'selected' : ''}`}
+                onClick={() => onServiceSelect(service.key)}
+              >
+                {isSelected(service.key) ? t.selectedButton : t.selectButton}
+              </button>
+            </div>
+          ))}
         </div>
-
-        {/* You mentioned audience is part of Services — this will also fade in as one block */}
         <Audience />
       </section>
     </FadeInSection>

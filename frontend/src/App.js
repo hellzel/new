@@ -14,18 +14,18 @@ import './styles/Provenienssi.css';
 function AppContent() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // ← **Single source of truth** for selected services:
   const [selectedServices, setSelectedServices] = useState([]);
   const [detailKey, setDetailKey] = useState(null);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const toggleMenu = () => setMenuOpen(o => !o);
 
   const handleServiceSelect = (key) => {
-    setSelectedServices((prev) => {
+    setSelectedServices(prev => {
       if (prev.includes(key)) {
         setDetailKey(null);
-        return prev.filter((k) => k !== key);
+        return prev.filter(k => k !== key);
       }
       if (prev.length >= 3) return prev;
       setDetailKey(key);
@@ -36,10 +36,22 @@ function AppContent() {
   return (
     <>
       <Header menuOpen={menuOpen} toggleMenu={toggleMenu} />
+
       <Routes>
         <Route path="/" element={<HeroSection />} />
         <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services onServiceSelect={handleServiceSelect} />} />
+
+        {/* Pass both the array and the toggle function */}
+        <Route
+          path="/services"
+          element={
+            <Services
+              selectedServices={selectedServices}
+              onServiceSelect={handleServiceSelect}
+            />
+          }
+        />
+
         <Route path="/audience" element={<Audience />} />
         <Route path="/contact" element={<Contact selectedServices={selectedServices} />} />
       </Routes>
@@ -57,7 +69,7 @@ function AppContent() {
   );
 }
 
-function App() {
+export default function App() {
   return (
     <LanguageProvider>
       <Router>
@@ -66,5 +78,3 @@ function App() {
     </LanguageProvider>
   );
 }
-
-export default App;
