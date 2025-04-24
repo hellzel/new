@@ -1095,3 +1095,39 @@ nav {
     color: #7c7c7c;
   }
   
+  .contact-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .contact-grid form {
+    flex: 1 1 350px;
+    min-width: 300px;
+  }
+  
+  .opening-hours {
+    flex: 1 1 250px;
+    min-width: 250px;
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-left: 3px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .opening-hours h3 {
+    margin-top: 0;
+  }
+  
+  .opening-hours ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .opening-hours li {
+    margin-bottom: 0.5rem;
+  }
+  
+  

@@ -83,11 +83,24 @@ everything from setup to bidding through to final sale.`,
     serverError: '❌Could not connect to server.',
     fileUploadLabel: 'Choose file',
 
+    // Opening Hours
+    openingHoursTitle: 'Opening Hours',
+    openingHoursDays: {
+      mondayFriday: 'Mon–Fri',
+      saturday: 'Saturday',
+      sunday: 'Sunday',
+    },
+    openingHoursTimes: {
+      weekday: '09:00–17:00',
+      saturday: '10:00–14:00',
+      sunday: 'Closed',
+    },
+
     // Footer
     email: 'Email',
     phone: 'Phone',
     address: 'Address',
-    addressValue: 'Museokatu 10, 00100 Helsinki, Finland',
+    addressValue: 'Linnankatu 59, 20100 Turku, Finland',
     allRightsReserved: 'All Rights Reserved',
   },
 
@@ -170,12 +183,25 @@ kilpailevat esineistäsi aina aloituksesta kauppaan asti.`,
     serverError: '❌Palvelimeen ei saatu yhteyttä.',
     fileUploadLabel: 'Valitse tiedosto',
 
+    // Aukioloajat
+    openingHoursTitle: 'Aukioloajat',
+    openingHoursDays: {
+      mondayFriday: 'Ma–Pe',
+      saturday: 'Lauantai',
+      sunday: 'Sunnuntai',
+    },
+    openingHoursTimes: {
+      weekday: '09:00–17:00',
+      saturday: '10:00–14:00',
+      sunday: 'Suljettu',
+    },
+
     // Footer
     email: 'Sähköposti',
     phone: 'Puhelin',
     address: 'Osoite',
-    addressValue: 'Museokatu 10, 00100 Helsinki, Suomi',
-    allRightsReserved: 'Kaikki oikeudet pidätetään.',
+    addressValue: 'Linnankatu 59, 20100 Turku, Suomi',
+    allRightsReserved: 'Kaikki oikeudet pidätetään',
   },
 };
 

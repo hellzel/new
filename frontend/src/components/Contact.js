@@ -1,4 +1,3 @@
-// src/components/Contact.js
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '../contexts/languageContext';
 import FadeInSection from './FadeInSection';
@@ -11,7 +10,6 @@ function Contact({ selectedServices }) {
   const { language, translations } = useLanguage();
   const t = translations[language];
 
-  // Map your keys (service1/service2/service3) → the translated titles
   const translateKey = useCallback((key) => {
     switch (key) {
       case 'service1': return t.service1Title;
@@ -21,7 +19,6 @@ function Contact({ selectedServices }) {
     }
   }, [t]);
 
-  // Keep an array of display‑friendly names
   const [translatedServices, setTranslatedServices] = useState([]);
   useEffect(() => {
     setTranslatedServices(selectedServices.map(translateKey));
@@ -62,53 +59,64 @@ function Contact({ selectedServices }) {
 
   return (
     <FadeInSection>
-      <section id="contact">
+      <section id="contact" className="contact-section">
         <h2>{t.contactTitle}</h2>
-        <form onSubmit={handleSubmit} encType="multipart/form-data" autoComplete="on">
-          <input type="text"   name="name"    placeholder={t.namePlaceholder}    required />
-          <input type="email"  name="email"   placeholder={t.emailPlaceholder}   required />
-          <input
-            type="text"
-            name="phone"
-            placeholder={t.phonePlaceholder}
-            onInput={e => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
-            required
-          />
-          <textarea
-            name="message"
-            placeholder={t.messagePlaceholder}
-            value={message}
-            onChange={e => setMessage(e.target.value)}
-            required
-          />
-
-          {translatedServices.length > 0 && (
-            <div className="selected-services-preview">
-              <label>{t.selectedServicesLabel}</label>
-              <ul>
-                {translatedServices.map((svc, i) => <li key={i}>{svc}</li>)}
-              </ul>
-            </div>
-          )}
-
-          <div className="file-input-container">
+        <div className="contact-grid">
+          <form onSubmit={handleSubmit} encType="multipart/form-data" autoComplete="on">
+            <input type="text" name="name" placeholder={t.namePlaceholder} required />
+            <input type="email" name="email" placeholder={t.emailPlaceholder} required />
             <input
-              id="attachment"
-              type="file"
-              name="attachment"
-              accept="image/*"
-              onChange={handleFileChange}
-              style={{ display: 'none' }}
+              type="text"
+              name="phone"
+              placeholder={t.phonePlaceholder}
+              onInput={e => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
+              required
             />
-            <label htmlFor="attachment" className="file-input-label">
-              {selectedFile ? (t.changeFileLabel || "Change file") : t.fileUploadLabel}
-            </label>
-            {selectedFile && <p className="file-name">{selectedFile.name}</p>}
-          </div>
+            <textarea
+              name="message"
+              placeholder={t.messagePlaceholder}
+              value={message}
+              onChange={e => setMessage(e.target.value)}
+              required
+            />
 
-          <button type="submit">{t.submitButton}</button>
-        </form>
-        {responseMessage && <p>{responseMessage}</p>}
+            {translatedServices.length > 0 && (
+              <div className="selected-services-preview">
+                <label>{t.selectedServicesLabel}</label>
+                <ul>
+                  {translatedServices.map((svc, i) => <li key={i}>{svc}</li>)}
+                </ul>
+              </div>
+            )}
+
+            <div className="file-input-container">
+              <input
+                id="attachment"
+                type="file"
+                name="attachment"
+                accept="image/*"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
+              <label htmlFor="attachment" className="file-input-label">
+                {selectedFile ? (t.changeFileLabel || "Change file") : t.fileUploadLabel}
+              </label>
+              {selectedFile && <p className="file-name">{selectedFile.name}</p>}
+            </div>
+
+            <button type="submit">{t.submitButton}</button>
+            {responseMessage && <p>{responseMessage}</p>}
+          </form>
+
+          <div className="opening-hours">
+            <h3>{t.openingHoursTitle}</h3>
+            <ul>
+              <li><strong>{t.openingHoursDays.mondayFriday}:</strong> {t.openingHoursTimes.weekday}</li>
+              <li><strong>{t.openingHoursDays.saturday}:</strong> {t.openingHoursTimes.saturday}</li>
+              <li><strong>{t.openingHoursDays.sunday}:</strong> {t.openingHoursTimes.sunday}</li>
+            </ul>
+          </div>
+        </div>
       </section>
     </FadeInSection>
   );
