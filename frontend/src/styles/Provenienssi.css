@@ -1130,4 +1130,52 @@ nav {
     margin-bottom: 0.5rem;
   }
   
+  /* General Styles for the Audience Card Preview */
+.selected-audience-preview {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff; /* White background */
+    border: 2px solid #ddd; /* Border like in the services section */
+    border-radius: 8px; /* Rounded corners to match service cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover transition */
+  }
+  
+  .selected-audience-preview:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+  }
+  
+  /* Style for the label (similar to the services section) */
+  .selected-audience-preview label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333; /* Dark text color */
+    margin-bottom: 10px;
+    display: block;
+  }
+  
+  /* Style for the selected audience text */
+  .selected-audience-preview p {
+    font-size: 1rem;
+    color: #555; /* Slightly lighter text */
+    margin-top: 5px;
+    font-style: italic; /* To differentiate it from the other form fields */
+  }
+  
+  /* Optional: Responsive Design */
+  @media (max-width: 768px) {
+    .selected-audience-preview {
+      padding: 12px; /* Slightly reduced padding on smaller screens */
+    }
+  
+    .selected-audience-preview label {
+      font-size: 1.1rem;
+    }
+  
+    .selected-audience-preview p {
+      font-size: 0.95rem;
+    }
+  }
+  
   

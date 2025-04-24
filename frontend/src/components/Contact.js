@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '../contexts/languageContext';
 import FadeInSection from './FadeInSection';
 
-function Contact({ selectedServices }) {
+function Contact({ selectedServices, selectedAudience }) {
   const [responseMessage, setResponseMessage] = useState("");
   const [message, setMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -10,6 +10,11 @@ function Contact({ selectedServices }) {
   const { language, translations } = useLanguage();
   const t = translations[language];
 
+  // Log selected audience and services to see if they are passed correctly
+  console.log("Selected Audience in Contact:", selectedAudience);
+  console.log("Selected Services in Contact:", selectedServices);
+
+  // Helper function to translate service keys
   const translateKey = useCallback((key) => {
     switch (key) {
       case 'service1': return t.service1Title;
@@ -19,8 +24,10 @@ function Contact({ selectedServices }) {
     }
   }, [t]);
 
+  // Translates selected services
   const [translatedServices, setTranslatedServices] = useState([]);
   useEffect(() => {
+    console.log("Translating selected services...");
     setTranslatedServices(selectedServices.map(translateKey));
   }, [selectedServices, translateKey]);
 
@@ -30,12 +37,15 @@ function Contact({ selectedServices }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form submitted. Preparing data...");
+
     const formData = new FormData();
     formData.append("name", e.target.name.value);
     formData.append("email", e.target.email.value);
     formData.append("phone", e.target.phone.value);
     formData.append("message", message);
     formData.append("services", translatedServices.join(", "));
+    formData.append("audience", selectedAudience); // Include selected audience in the form data
     if (selectedFile) formData.append("attachment", selectedFile);
 
     try {
@@ -44,6 +54,8 @@ function Contact({ selectedServices }) {
         body: formData,
       });
       const result = await res.json();
+      console.log("Email send response:", result);
+      
       if (res.ok) {
         setResponseMessage(t.thankYouMessage);
         setMessage("");
@@ -52,7 +64,7 @@ function Contact({ selectedServices }) {
         setResponseMessage(`❌ ${t.errorMessage}: ${result.error || 'Unknown error'}`);
       }
     } catch (err) {
-      console.error(err);
+      console.error("Error during email send:", err);
       setResponseMessage(t.serverError);
     }
   };
@@ -86,6 +98,13 @@ function Contact({ selectedServices }) {
                 <ul>
                   {translatedServices.map((svc, i) => <li key={i}>{svc}</li>)}
                 </ul>
+              </div>
+            )}
+
+            {selectedAudience && (
+              <div className="selected-audience-preview">
+                <label>{t.selectedAudienceLabel}</label>
+                <p className="audience-text">{selectedAudience}</p> {/* Display selected audience */}
               </div>
             )}
 

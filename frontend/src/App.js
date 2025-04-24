@@ -15,8 +15,9 @@ function AppContent() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // ← **Single source of truth** for selected services:
+  // **Single source of truth** for selected services and audience
   const [selectedServices, setSelectedServices] = useState([]);
+  const [selectedAudience, setSelectedAudience] = useState(null);
   const [detailKey, setDetailKey] = useState(null);
 
   const toggleMenu = () => setMenuOpen(o => !o);
@@ -33,6 +34,11 @@ function AppContent() {
     });
   };
 
+  const handleAudienceSelect = (audience) => {
+    console.log("Audience selected:", audience);
+    setSelectedAudience(audience);  // Update the selectedAudience state
+  };
+
   return (
     <>
       <Header menuOpen={menuOpen} toggleMenu={toggleMenu} />
@@ -41,19 +47,25 @@ function AppContent() {
         <Route path="/" element={<HeroSection />} />
         <Route path="/about" element={<About />} />
 
-        {/* Pass both the array and the toggle function */}
         <Route
           path="/services"
           element={
             <Services
               selectedServices={selectedServices}
               onServiceSelect={handleServiceSelect}
+              onAudienceSelect={handleAudienceSelect} // Ensure audience select is passed here
             />
           }
         />
 
-        <Route path="/audience" element={<Audience />} />
-        <Route path="/contact" element={<Contact selectedServices={selectedServices} />} />
+        <Route
+          path="/audience"
+          element={<Audience onAudienceSelect={handleAudienceSelect} selectedAudience={selectedAudience} />} // Pass selectedAudience here
+        />
+        <Route
+          path="/contact"
+          element={<Contact selectedServices={selectedServices} selectedAudience={selectedAudience} />} // Ensure Contact has selectedAudience
+        />
       </Routes>
 
       {location.pathname === '/services' && selectedServices.length > 0 && (

@@ -3,7 +3,7 @@ import { useLanguage } from '../contexts/languageContext';
 import Audience from './Audience';
 import FadeInSection from './FadeInSection';
 
-function Services({ selectedServices, onServiceSelect }) {
+function Services({ selectedServices, onServiceSelect, onAudienceSelect }) { // ← Added onAudienceSelect here
   const { language, translations } = useLanguage();
   const t = translations[language];
 
@@ -36,7 +36,7 @@ function Services({ selectedServices, onServiceSelect }) {
             </div>
           ))}
         </div>
-        <Audience />
+        <Audience onAudienceSelect={onAudienceSelect} /> {/* ← Fixed: passed down the prop */}
       </section>
     </FadeInSection>
   );
