@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { LanguageProvider } from './contexts/languageContext';
+import { SelectedAudienceProvider, useSelectedAudience } from './contexts/selectedAudienceContext'; // Import context
 import Header from './components/Header';
 import About from './components/About';
 import Services from './components/Services';
@@ -16,9 +17,17 @@ function AppContent() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   // **Single source of truth** for selected services and audience
+  const { selectedAudience, setSelectedAudience } = useSelectedAudience(); // Use context here
   const [selectedServices, setSelectedServices] = useState([]);
-  const [selectedAudience, setSelectedAudience] = useState(null);
   const [detailKey, setDetailKey] = useState(null);
+
+  // Update session storage when selectedAudience changes
+  useEffect(() => {
+    if (selectedAudience !== null) {
+      console.log("AppContent: Setting selectedAudience to sessionStorage:", selectedAudience);
+      sessionStorage.setItem('selectedAudience', selectedAudience);
+    }
+  }, [selectedAudience]);
 
   const toggleMenu = () => setMenuOpen(o => !o);
 
@@ -35,9 +44,11 @@ function AppContent() {
   };
 
   const handleAudienceSelect = (audience) => {
-    console.log("Audience selected:", audience);
+    console.log("AppContent: Audience selected:", audience); 
     setSelectedAudience(audience);  // Update the selectedAudience state
   };
+
+  console.log("AppContent: Rendering with selectedAudience:", selectedAudience); 
 
   return (
     <>
@@ -46,25 +57,33 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<HeroSection />} />
         <Route path="/about" element={<About />} />
-
         <Route
           path="/services"
           element={
             <Services
               selectedServices={selectedServices}
               onServiceSelect={handleServiceSelect}
-              onAudienceSelect={handleAudienceSelect} // Ensure audience select is passed here
+              onAudienceSelect={handleAudienceSelect} 
             />
           }
         />
-
         <Route
           path="/audience"
-          element={<Audience onAudienceSelect={handleAudienceSelect} selectedAudience={selectedAudience} />} // Pass selectedAudience here
+          element={
+            <Audience
+              onAudienceSelect={handleAudienceSelect}
+              selectedAudience={selectedAudience}  
+            />
+          }
         />
         <Route
           path="/contact"
-          element={<Contact selectedServices={selectedServices} selectedAudience={selectedAudience} />} // Ensure Contact has selectedAudience
+          element={
+            <Contact
+              selectedServices={selectedServices}
+              selectedAudience={selectedAudience}  
+            />
+          }
         />
       </Routes>
 
@@ -84,9 +103,11 @@ function AppContent() {
 export default function App() {
   return (
     <LanguageProvider>
-      <Router>
-        <AppContent />
-      </Router>
+      <SelectedAudienceProvider>  {/* Wrap the app content with the provider */}
+        <Router>
+          <AppContent />
+        </Router>
+      </SelectedAudienceProvider>
     </LanguageProvider>
   );
 }

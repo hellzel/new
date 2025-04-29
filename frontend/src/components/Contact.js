@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '../contexts/languageContext';
+import { useSelectedAudience } from '../contexts/selectedAudienceContext'; // Import context hook
 import FadeInSection from './FadeInSection';
 
-function Contact({ selectedServices, selectedAudience }) {
+function Contact({ selectedServices }) {
   const [responseMessage, setResponseMessage] = useState("");
   const [message, setMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
 
   const { language, translations } = useLanguage();
+  const { selectedAudience } = useSelectedAudience(); // Get selected audience from context
   const t = translations[language];
 
   // Log selected audience and services to see if they are passed correctly

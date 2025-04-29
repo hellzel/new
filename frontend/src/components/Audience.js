@@ -1,11 +1,12 @@
 import React from 'react';
 import { useLanguage } from '../contexts/languageContext';
+import { useSelectedAudience } from '../contexts/selectedAudienceContext';
 
-function Audience({ onAudienceSelect, selectedAudience }) {
+function Audience() {
   const { language, translations } = useLanguage();
+  const { selectedAudience, setSelectedAudience, clearSelectedAudience } = useSelectedAudience();
   const t = translations[language];
 
-  // Define the audience items, including their key, label, and icon.
   const audienceItems = [
     { key: 'auctions', label: t.auctions, icon: 'fas fa-gavel' },
     { key: 'galleries', label: t.galleries, icon: 'fas fa-palette' },
@@ -15,7 +16,6 @@ function Audience({ onAudienceSelect, selectedAudience }) {
     { key: 'insurance', label: t.insurance, icon: 'fas fa-shield-alt' },
   ];
 
-  // Check if the current item is selected based on its key
   const isSelected = (key) => selectedAudience === key;
 
   return (
@@ -25,13 +25,36 @@ function Audience({ onAudienceSelect, selectedAudience }) {
         {audienceItems.map((audience) => (
           <li
             key={audience.key}
-            className={`audience-option ${isSelected(audience.key) ? 'selected' : ''}`} // Apply the 'selected' class if the item is selected
-            onClick={() => onAudienceSelect(audience.key)} // When an item is clicked, call onAudienceSelect with the key
+            className={`audience-option ${isSelected(audience.key) ? 'selected' : ''}`}
+            onClick={() => setSelectedAudience(audience.key)}
           >
-            <i className={audience.icon}></i> {audience.label}
+            <div className="audience-card">
+              <i className={audience.icon}></i>
+              <span>{audience.label}</span>
+              {isSelected(audience.key) && (
+                <span className="checkmark">✔️</span>
+              )}
+            </div>
           </li>
         ))}
       </ul>
+
+      {selectedAudience && (
+        <button
+          onClick={clearSelectedAudience}
+          style={{
+            marginTop: '20px',
+            padding: '10px 20px',
+            backgroundColor: '#cc0000',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer'
+          }}
+        >
+          {t.clearSelection || 'Clear Selection'}
+        </button>
+      )}
     </section>
   );
 }

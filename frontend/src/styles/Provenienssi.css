@@ -1178,4 +1178,69 @@ nav {
     }
   }
   
-  
+/* For better visibility, ensure the checkmark is displayed clearly */
+/* Ensure that the checkmark has higher specificity */
+/* Add these styles to your CSS file */
+
+.audience-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.audience-option {
+  position: relative;
+  flex: 1 1 calc(33.333% - 20px);
+  min-width: 200px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.audience-card {
+  border: 2px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.3s ease;
+  background-color: white;
+  position: relative;
+}
+
+.audience-option:hover .audience-card {
+  border-color: #0077cc;
+  background-color: #f0f8ff;
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.audience-option.selected .audience-card {
+  border-color: #92d8a2;
+  background-color: hsl(0, 0%, 100%);
+  box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+}
+
+/* Checkmark box */
+.checkmark {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #28a745;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  font-size: 1rem;
+  color: #149733;
+}
+
+/* Hide checkmark unless selected */
+.audience-option:not(.selected) .checkmark {
+  display: none;
+}
+
+

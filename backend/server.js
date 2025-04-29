@@ -32,22 +32,32 @@ app.get('/test', (req, res) => {
 
 app.post('/send-email', upload.single('attachment'), (req, res) => {
   console.log('📬 POST /send-email route hit');
-  const { name, email, phone, message, services } = req.body;
+  
+
+  const { name, email, phone, message, services, audience } = req.body;
   const file = req.file;
+
+  console.log('Received Audience:', audience);
 
   if (!name || !email || !message) {
     return res.status(400).json({ error: 'Name, email, and message are required.' });
   }
 
+  // Format services
   const formattedServices = (services || '')
     .split(',')
     .map(s => s.trim())
     .filter(Boolean)
-    .map(s => `• ${s}`)
-    .join('<br>');
+    .map(s => `<li>${s}</li>`)
+    .join('');
 
+  // Format audience with inline styles for spacing
+  const formattedAudience = audience ? `<p><strong>Selected Audience Group:</strong><br><span style="display:block; padding-top: 7px;">${audience}</span></p>` : '';
+
+  // Format message by replacing newlines with <br>
   const formattedMessage = message.replace(/\n/g, '<br>');
 
+  // Prepare mail options
   const mailOptions = {
     from: `${name} <${process.env.EMAIL_USER}>`,
     to: process.env.EMAIL_USER,
@@ -57,14 +67,13 @@ app.post('/send-email', upload.single('attachment'), (req, res) => {
       <p><strong>Name:</strong> ${name}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
+      ${formattedAudience} <!-- Add audience to email -->
       <p><strong>Selected Services:</strong></p>
       <ul>
-        ${services
-          ? services.split(',').map(s => `<li>${s.trim()}</li>`).join('')
-          : '<li>None selected</li>'}
+        ${formattedServices || '<li>None selected</li>'}
       </ul>
       <p><strong>Message:</strong></p>
-      <p>${message.replace(/\n/g, '<br>')}</p>
+      <p>${formattedMessage}</p>
     `,
     attachments: file
       ? [{
@@ -86,6 +95,7 @@ app.post('/send-email', upload.single('attachment'), (req, res) => {
   });
 });
 
+// Global error handler
 app.use((err, req, res, next) => {
   console.error('🔥 Unhandled error:', err.stack);
   res.status(500).send('Something broke!');
