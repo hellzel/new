@@ -139,7 +139,7 @@ function Contact({ selectedServices }) {
             </ul>
             <br></br>
             <br></br>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d166.42583574484317!2d22.243403183445846!3d60.44062878900584!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x468c77dad65f7a2f%3A0xc4c791d4536b4d9f!2sMinerva!5e1!3m2!1sfi!2sfi!4v1746010098294!5m2!1sfi!2sfi" width="300" height="300" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d166.42583574484317!2d22.243403183445846!3d60.44062878900584!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x468c77dad65f7a2f%3A0xc4c791d4536b4d9f!2sMinerva!5e1!3m2!1sfi!2sfi!4v1746010098294!5m2!1sfi!2sfi" title="location"width="300" height="300" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </section>
