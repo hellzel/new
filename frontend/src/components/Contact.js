@@ -106,7 +106,7 @@ function Contact({ selectedServices }) {
             {selectedAudience && (
               <div className="selected-audience-preview">
                 <label>{t.selectedAudienceLabel}</label>
-                <p className="audience-text">{selectedAudience}</p> {/* Display selected audience */}
+                <p className="audience-text">{t[selectedAudience]}</p>
               </div>
             )}
 
@@ -131,11 +131,15 @@ function Contact({ selectedServices }) {
 
           <div className="opening-hours">
             <h3>{t.openingHoursTitle}</h3>
+            
             <ul>
               <li><strong>{t.openingHoursDays.mondayFriday}:</strong> {t.openingHoursTimes.weekday}</li>
               <li><strong>{t.openingHoursDays.saturday}:</strong> {t.openingHoursTimes.saturday}</li>
               <li><strong>{t.openingHoursDays.sunday}:</strong> {t.openingHoursTimes.sunday}</li>
             </ul>
+            <br></br>
+            <br></br>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d166.42583574484317!2d22.243403183445846!3d60.44062878900584!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x468c77dad65f7a2f%3A0xc4c791d4536b4d9f!2sMinerva!5e1!3m2!1sfi!2sfi!4v1746010098294!5m2!1sfi!2sfi" width="300" height="300" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </section>

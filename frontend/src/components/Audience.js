@@ -30,10 +30,10 @@ function Audience() {
           >
             <div className="audience-card">
               <i className={audience.icon}></i>
-              <span>{audience.label}</span>
-              {isSelected(audience.key) && (
-                <span className="checkmark">✔️</span>
-              )}
+              <span className={`audience-label ${isSelected(audience.key) ? 'visible' : 'hidden'}`}>
+                {audience.label}
+              </span>
+              {isSelected(audience.key) && <span className="checkmark">✔️</span>}
             </div>
           </li>
         ))}

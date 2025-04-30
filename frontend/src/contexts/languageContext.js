@@ -27,7 +27,7 @@ export const translations = {
     aboutText: 'We are a leading expert in provenance verification.',
     aboutUs: 'About Us',
     aboutUsText:
-      'At Provenienssi, we specialize in assessing the provenance of valuable items such as art, antiques, and collectibles. Our experienced experts provide thorough evaluation and historical documentation, ensuring transparency and authenticity for our clients.',
+      'At Provenienssi, we specialize in assessing the provenance of valuable items such as art, antiques, and collectibles. \n\n Our experienced experts provide thorough evaluation and historical documentation, ensuring transparency and authenticity for our clients.',
     meetMaria: 'Meet Maria Ekman-Kolari',
     mariaText:
       'Maria is a recognized authority in the field of provenance research, bringing years of expertise in evaluating fine art and collectibles. Her dedication to the craft ensures clients receive the highest level of expertise and accuracy.',
@@ -46,7 +46,7 @@ export const translations = {
     service1Title: 'Item Evaluation',
     service1Desc: 'Get a professional evaluation of your valuable items.',
     service1Detail: `Do you want to know the monetary value of your design piece,
-art glass, ceramic, fine art or other collectible? \n\nOur experts,
+art glass, ceramic, fine art or other collectible? \n\n Our experts,
 with years of experience in auctions, estates, collectors,
 dealers and insurance valuations, will give you an accurate appraisal.`,
 
